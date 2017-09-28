@@ -63,10 +63,9 @@
     <tr>
         <td><?php echo $omschrijving; ?></td>
         <td><?php echo $prijs; ?></td>
-        <td><?php echo $voorraad; ?> </td>
+        <td><?php echo $voorraad; ?></td>
 
-        <td><?php echo "<input id='$id',type='text', size='3', 
-                onblur='addToCart('$omschrijving', $prijs, this.id)'"; ?>/></td>
+        <td><?php echo "<input id=$id,type='text', size='3', onblur='addToCart($omschrijving, $prijs, this.id)'"; ?>/></td>
     </tr>
 
     <?php

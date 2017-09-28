@@ -1,3 +1,4 @@
+server  : localhost
 username: username
 password: QZ269x8FQxntaJQc
 database: kroketweb

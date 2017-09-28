@@ -14,14 +14,14 @@
   <div class="top"> <img src="images/logo.jpg" alt=""> </div>
 
 
-  <div class="left">
+<div class="left">
     <span class="sponsortitle"> Menu </span>
     <ul class="nav-list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="assortiment.html">Assortiment</a></li>
-      <li class="active"><a href="afrekenen.html">Afrekenen</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li class="active"><a href="assortiment.php">Assortiment</a></li>
+        <li><a href="afrekenen.php">Afrekenen</a></li>
     </ul>
-  </div>
+</div>
 
 
 <div class="middle">

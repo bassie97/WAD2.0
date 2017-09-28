@@ -1,0 +1,58 @@
+body { font-family: lucinda, helvetica; font-size: 16px; }
+
+a, a:visited { color: #ff9999; }
+h3 { margin-top:0px; padding-top:0px; }
+
+.top { position: absolute; left:20px; top:20px; width: 980px; height: 60px; }
+.left { position: absolute; left: 20px; top: 90px; width: 100px; height: 400px; }
+.middle { position: absolute; left: 130px; top: 90px; width: 660px; height: 400px; text-align: justify; padding-left: 5px; padding-right: 5px;}
+.right { position: absolute; left: 850px; top: 90px; width: 300px; height: 400px; }
+.nav-title { font-weight: bold; }
+ul.nav-list { list-style-type: none; padding-left: 0px; }
+
+.intro {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+
+    -webkit-column-rule: 4px outset #ff9999; /* Chrome, Safari, Opera */
+    -moz-column-rule: 4px outset #ff9999; /* Firefox */
+    column-rule: 4px outset #ff9999;
+
+    background-image: url("/images/Kroket.jpg");
+    background-repeat: no-repeat;
+}
+
+.sponsortitle {
+    font-weight: bold;
+    color: #ff9999;
+}
+
+.sponsorlist {
+    color: #fa9e1a !important;
+    font-style: italic;
+}
+
+.sponsorlist > a:link {
+    text-decoration: none;
+}
+
+.sponsorlist > a:hover {
+    background-color: cyan;
+}
+
+a:visited {
+    background-color: cyan;
+}
+
+.active {
+    background-color: cyan;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

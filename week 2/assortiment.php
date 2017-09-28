@@ -1,4 +1,3 @@
-
 <?php
   $con = mysqli_connect('localhost','root','','kroketweb');
 
@@ -21,12 +20,6 @@
   <title>Welkom bij KroketWeb - Bestel je vette hap online</title>
   <link href="css/default.css" rel="stylesheet" type="text/css"/>
   <script src="js/main.js"></script>
-  <script src="js/validations.js"></script>
-    <script>
-        window.onload = function(){
-            updateCart();
-        }
-    </script>
   </head>
 
   <body>
@@ -51,90 +44,31 @@
 
 <div id="berichtenNavigatie">
 </div>
-<table>
+<table id="assortimentTable">
 <tr>
   <th>Product</th>
   <th>Prijs (euro)</th>
   <th>Op voorraad</th>
   <th>Bestelling</th>
 </tr>
-<tr>
+    <?php
+    while ($row = mysqli_fetch_assoc($resultSet)){
+        $id = $row["id"];
+        $omschrijving = $row["omschrijving"];
+        $prijs = $row["prijs"];
+        $voorraad = $row["voorraad"];
+        ?>
+        <tr>
+            <td><?php echo $omschrijving; ?></td>
+            <td><?php echo $prijs; ?></td>
+            <td><?php echo $voorraad; ?></td>
+            <td><input id='<?php echo $id; ?>' type='text' size='3' onblur='addToCart("<?php echo $omschrijving; ?> ", <?php echo $prijs; ?>, "<?php echo $id; ?>")'/></td>
 
-<td>Wiener Schnietzelschotel</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="1" type="text" size="3" onblur="addToCart('Wiener Schnietzelschotel', 9.90, this.id)"/>
-</tr>
+        </tr>
 
-<tr>
-  <td>Tosti Hawaii</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="2"type="text" size="3" onblur="addToCart('Tosti Hawaii', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Tosti Ham/kaas</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="3" type="text" size="3" onblur="addToCart('Tosti Ham/Kaas', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Spa rood</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="4" type="text" size="3" onblur="addToCart('Spa rood', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Snickers</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="5" type="text" size="3" onblur="addToCart('Snickers', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Portie satesaus</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="6" type="text" size="3" onblur="addToCart('Portie satesaus', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Portie raspata</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="7" type="text" size="3" onblur="addToCart('Portie raspatat', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Patat oorlog</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="8" type="text" size="3" onblur="addToCart('Patat oorlog', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Portie mayonaise</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="9" type="text" size="3" onblur="addToCart('Portie mayonaise', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Portie bitterballen</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="10" type="text" size="3" onblur="addToCart('Portie bitterballen', 9.90, this.id)"/>
-</tr>
-
-<tr>
-  <td>Falafel</td>
-  <td>9,90</td>
-  <td>Ja</td>
-  <td><input id="11" type="text" size="3" onblur="addToCart('Falafel', 9.90, this.id)"/>
-</tr>
+        <?php
+    }
+    ?>
 
 </table>
 
@@ -143,8 +77,7 @@
   <tr>
   <td>Producten per pagina</td>
 
-  <td><select name="getpage">
-        <option value=" "> </option>
+  <td><select name="getpage" id="itemsPerPage" onchange="preparePages()">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>

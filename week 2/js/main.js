@@ -77,3 +77,13 @@ function addToCart(snack, price, id){
         alert("No Web Storage support")
     }
 }
+
+function preparePages(){
+    var totalNumberOfPages = Math.ceil(document.getElementById("assortimentTable").rows.length / document.getElementById("itemsPerPage").value);
+    alert(totalNumberOfPages);
+    for(i = 1; i <= totalNumberOfPages; i++){
+
+    }
+}
+
+function showPage(id){}

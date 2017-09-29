@@ -55,31 +55,34 @@
 
   <br/>
  
- <fieldset><legend>Bezorggegevens</legend>
- <table>
- <tr>
-  <td>Naam</td>
-  <td><input id="name" type="text" name="myInput" size="20" onblur="validateName()"></td>
- </tr>
 
- <tr>
-  <td>Straat + nr</td>
-  <td><input id="street" type="text" name="myInput2" size="20" onblur="validateStreet()"></td>
- </tr>
-  
- <tr>
-  <td>Plaats</td>
-  <td><input id="city" type="text" name="myInput3" size="20" onblur="validateCity()"></td>
- </tr>
 
- <tr>
-  <td>Telefoonnummer</td>
-  <td><input id="phone" type="text" maxlength=10 name="area" onblur="validatePhone()"></td>
- </tr>
- </table>
- </fieldset><br/>
+ <form action="/afrekenen.php" method="post">
+     <fieldset><legend>Bezorggegevens</legend>
+         <table>
+         <tr>
+          <td>Naam</td>
+          <td><input id="name" type="text" name="name" size="20" onblur="validateName()"></td>
+         </tr>
 
- <input type="button" value="Plaats bestelling"/>
+         <tr>
+          <td>Straat + nr</td>
+          <td><input id="street" type="text" name="street" size="20" onblur="validateStreet()"></td>
+         </tr>
+
+         <tr>
+          <td>Plaats</td>
+          <td><input id="city" type="text" name="city" size="20" onblur="validateCity()"></td>
+         </tr>
+
+         <tr>
+          <td>Telefoonnummer</td>
+          <td><input id="phone" type="text" maxlength=10 name="phone" onblur="validatePhone()"></td>
+         </tr>
+         </table>
+     </fieldset><br/>
+
+ <input type="submit" value="Plaats bestelling"/>
 </form>
 </div>
 

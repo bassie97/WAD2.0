@@ -3,8 +3,6 @@
 
   if($con)
       echo "Connection established.";
-  else
-      echo "Connection failed.";
 
   $getAllSnacksQuery = "SELECT * FROM product";
   $resultSet = mysqli_query($con, $getAllSnacksQuery);
@@ -31,7 +29,7 @@
     <ul class="nav-list">
       <li><a href="index.html">Home</a></li>
       <li class="active"><a href="assortiment.php">Assortiment</a></li>
-      <li><a href="afrekenen.html">Afrekenen</a></li>
+      <li><a href="afrekenen.php">Afrekenen</a></li>
     </ul>
   </div>
 
@@ -78,7 +76,7 @@
   <td>Producten per pagina</td>
 
   <td><select name="getpage" id="itemsPerPage" onchange="preparePages()">
-        <option value="5">5</option>
+        <option value="5"><</option>
         <option value="10">10</option>
         <option value="15">15</option>
   </select></td>

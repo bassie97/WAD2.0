@@ -91,26 +91,39 @@ function preparePages(){
 
         // build up the html buttons for page requests.
         for (var i = 1; i <= totalNumberOfPages; i++) {
-            document.getElementById("page").innerHTML += "<button id=" + i + " onclick='showPage(" + i + ")'>" + i + "</button>";
+            document.getElementById("page").innerHTML += "<button type='button' id=" + i + " onclick='showPage(" + i + ")'>" + i + "</button>";
         }
     }
 
 }
 
 function showPage(id){
-
-    for(var i = 1; i <= document.getElementById("assortimentTable").rows.length ; i++) {
-        document.getElementById(i).style.display = 'none';
+    // hide all rows
+    alert(id);
+    for(var i = 1; i < document.getElementById("assortimentTable").rows.length ; i++) {
+        var row = document.getElementById('tr'+i.toString());
+        row.style.display = "none";
+    }
+    // only show the ones we want.
+    var item;
+    alert(id);
+    if(id === 1){
+        for (item = id; item <= id * document.getElementById("itemsPerPage").value; item++){
+            document.getElementById('tr' + item.toString()).style.display = '';
+        }
+    }else {
+        // id-1 * aantal items tot en met id * aantal items per pagina.
+        // pagina = 2
+        // aantal per pagina = 10
+        // ik wil resultaten 11-20 zien.
+        // 2-1
+        alert('gotta do stuff now');
+        for (item = ((id-1) * document.getElementById("itemsPerPage").value)+1; item < (id * document.getElementById("itemsPerPage").value)+1; item++) {
+            document.getElementById('tr' + item.toString()).style.display = '';
+        }
     }
 
-    for(var item = (id-1)*document.getElementById("itemsPerPage").value; item < id*document.getElementById("itemsPerPage").value; item ++){
-        alert('showing item id: ' + item);
-        var tableRow = document.getElementById(item);
-
-        alert(tableRow);
-    }
 
 
 
-    alert('showPage clicked with id:' + id);
 }

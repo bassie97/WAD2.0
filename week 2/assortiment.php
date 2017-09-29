@@ -46,6 +46,7 @@
 </div>
 <table id="assortimentTable">
 <tr>
+  <th>Nummer</th>
   <th>Product</th>
   <th>Prijs (euro)</th>
   <th>Op voorraad</th>
@@ -58,7 +59,8 @@
         $prijs = $row["prijs"];
         $voorraad = $row["voorraad"];
         ?>
-        <tr id='<?php echo $id; ?>'>
+        <tr id='<?php echo 'tr'.$id; ?>'>
+            <td><?php echo $id; ?></td>
             <td><?php echo $omschrijving; ?></td>
             <td><?php echo $prijs; ?></td>
             <td><?php echo $voorraad; ?></td>

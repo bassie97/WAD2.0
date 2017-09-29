@@ -79,11 +79,38 @@ function addToCart(snack, price, id){
 }
 
 function preparePages(){
-    var totalNumberOfPages = Math.ceil(document.getElementById("assortimentTable").rows.length / document.getElementById("itemsPerPage").value);
-    alert(totalNumberOfPages);
-    for(i = 1; i <= totalNumberOfPages; i++){
+    var tableLength = document.getElementById("assortimentTable").rows.length
+    var itemsPerPage = document.getElementById("itemsPerPage").value
+    if(itemsPerPage != 0) {
 
+        // number of pages rounded up.
+        var totalNumberOfPages = Math.ceil(tableLength / itemsPerPage);
+
+        // debug, see if page is correct.
+        alert(totalNumberOfPages);
+
+        // build up the html buttons for page requests.
+        for (var i = 1; i <= totalNumberOfPages; i++) {
+            document.getElementById("page").innerHTML += "<button id=" + i + " onclick='showPage(" + i + ")'>" + i + "</button>";
+        }
     }
+
 }
 
-function showPage(id){}
+function showPage(id){
+
+    for(var i = 1; i <= document.getElementById("assortimentTable").rows.length ; i++) {
+        document.getElementById(i).style.display = 'none';
+    }
+
+    for(var item = (id-1)*document.getElementById("itemsPerPage").value; item < id*document.getElementById("itemsPerPage").value; item ++){
+        alert('showing item id: ' + item);
+        var tableRow = document.getElementById(item);
+
+        alert(tableRow);
+    }
+
+
+
+    alert('showPage clicked with id:' + id);
+}

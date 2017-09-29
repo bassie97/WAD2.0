@@ -1,5 +1,4 @@
 function updateCart() {
-    console.log("asdasdfasdfasdfasdsf");
     var amountOfRows = sessionStorage.length;
     var tableRef = document.getElementById('cart').getElementsByTagName('tbody')[0];
 
@@ -97,4 +96,44 @@ function addToCart(snack, price, id){
 
 function clearSessionStorage() {
     sessionStorage.clear();
+}
+
+function preparePages(){
+    var tableLength = document.getElementById("assortimentTable").rows.length
+    var itemsPerPage = document.getElementById("itemsPerPage").value
+    if(itemsPerPage != 0) {
+
+        // number of pages rounded up.
+        var totalNumberOfPages = Math.ceil(tableLength / itemsPerPage);
+
+        // build up the html buttons for page requests.
+        for (var i = 1; i <= totalNumberOfPages; i++) {
+            document.getElementById("page").innerHTML += "<button type='button' id=" + i + " onclick='showPage(" + i + ")'>" + i + "</button>";
+        }
+    }
+
+}
+
+function showPage(id) {
+    // hide all rows
+    for (var i = 1; i < document.getElementById("assortimentTable").rows.length; i++) {
+        var row = document.getElementById('tr' + i.toString());
+        row.style.display = "none";
+    }
+    // only show the ones we want.
+    var item;
+    if (id === 1) {
+        for (item = id; item <= id * document.getElementById("itemsPerPage").value; item++) {
+            document.getElementById('tr' + item.toString()).style.display = '';
+        }
+    } else {
+        // id-1 * aantal items tot en met id * aantal items per pagina.
+        // pagina = 2
+        // aantal per pagina = 10
+        // ik wil resultaten 11-20 zien.
+        // 2-1
+        for (item = ((id - 1) * document.getElementById("itemsPerPage").value) + 1; item < (id * document.getElementById("itemsPerPage").value) + 1; item++) {
+            document.getElementById('tr' + item.toString()).style.display = '';
+        }
+    }
 }

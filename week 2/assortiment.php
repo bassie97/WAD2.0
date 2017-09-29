@@ -44,6 +44,7 @@
 </div>
 <table id="assortimentTable">
 <tr>
+  <th>Nummer</th>
   <th>Product</th>
   <th>Prijs (euro)</th>
   <th>Op voorraad</th>
@@ -56,7 +57,8 @@
         $prijs = $row["prijs"];
         $voorraad = $row["voorraad"];
         ?>
-        <tr>
+        <tr id='<?php echo 'tr'.$id; ?>'>
+            <td><?php echo $id; ?></td>
             <td><?php echo $omschrijving; ?></td>
             <td><?php echo $prijs; ?></td>
             <td><?php echo $voorraad; ?></td>
@@ -69,19 +71,19 @@
     ?>
 
 </table>
-
 <form>
 <table>
   <tr>
   <td>Producten per pagina</td>
 
   <td><select name="getpage" id="itemsPerPage" onchange="preparePages()">
-        <option value="5"><</option>
+        <option value="0">Alles</option>
+        <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>
   </select></td>
 
-  <td><b>1</b> | 2 | 3 | ...</td>
+  <td id="page"></td>
   </tr>
 </table>
 </form>

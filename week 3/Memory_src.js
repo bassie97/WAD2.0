@@ -13,7 +13,18 @@ function initVars(size){
 }
 
 function vulSpeelveld(size){
+    $('#speelveld').empty();
+    var html = '';
 	getLetter = new nextLetter(size);
+	for(var i = 0; i < size; i ++){
+        html += "<tr>";
+	    for(var j = 0; j < size; j ++){
+            html += "<td>" + $('#character').val() + "</td>";
+        }
+        html += "</tr>";
+    }
+    //document.getElementById("speelveld").innerHTML = html;
+    $('#speelveld').first().after(html);
   // Hier moet de code om het speelveld te vullen met de cellen
 }
 
@@ -58,5 +69,6 @@ function shuffle(array) {
 $(document).ready(function(){
     $("#opnieuw").click(function(){
         initGame($("#size").val());
+        console.log('opnieuw geklikt');
     });
 });

@@ -2,10 +2,13 @@
  *
  */
 
+
+
 function initGame(size) {
 	initVars(size);
 	vulSpeelveld(size);
   // Verder aanvullen....
+    console.log(playField);
 }
 
 function initVars(size){
@@ -13,19 +16,20 @@ function initVars(size){
 }
 
 function vulSpeelveld(size){
+    playField = Create2DArray(size);
     $('#speelveld').empty();
     var html = '';
 	getLetter = new nextLetter(size);
 	for(var i = 0; i < size; i ++){
         html += "<tr>";
 	    for(var j = 0; j < size; j ++){
-            html += "<td>" + $('#character').val() + "</td>";
+	        var letter = getLetter();
+            html += "<td class='inactive'>" + $('#character').val() + "</td>";
+            playField[i][j] = letter;
         }
         html += "</tr>";
     }
-    //document.getElementById("speelveld").innerHTML = html;
-    $('#speelveld').first().after(html);
-  // Hier moet de code om het speelveld te vullen met de cellen
+    $('#speelveld').first().append(html);
 }
 
 // TODO rest van de functionaliteit.
@@ -66,9 +70,56 @@ function shuffle(array) {
 	return array;
 }
 
+function Create2DArray(rows) {
+    var arr = [];
+
+    for (var i=0;i<rows;i++) {
+        arr[i] = [];
+    }
+
+    return arr;
+}
+
 $(document).ready(function(){
+
+    var first = ''
+    var second = '';
+
     $("#opnieuw").click(function(){
         initGame($("#size").val());
         console.log('opnieuw geklikt');
     });
+
+    $('td').click(function () {
+        $(this).attr('class', 'active');
+        var col = $(this).parent().children().index($(this));
+        var row = $(this).parent().parent().children().index($(this).parent());
+        console.log('row: ' + row + ' column: ' + col);
+        if(first && first !== ''){
+            second = playField[row][col];
+        } else {
+            first = playField[row][col];
+        }
+
+        if(second){
+            console.log('card 1: ' + first + ' card 2: ' + second);
+            if(first === second){
+                // pair found
+                console.log('found a pair');
+                $('.active').attr('class', 'found');
+                first = '';
+                second = '';
+
+            }
+
+        }
+    });
+
+    var allActive = $('.active').map(function() {
+        console.log('true');
+    });
+
 });
+
+
+

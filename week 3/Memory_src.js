@@ -90,7 +90,7 @@ $(document).ready(function(){
         console.log('opnieuw geklikt');
     });
 
-    $('td').click(function () {
+    $('#speelveld td').click(function () {
         $(this).attr('class', 'active');
         var col = $(this).parent().children().index($(this));
         var row = $(this).parent().parent().children().index($(this).parent());
@@ -110,14 +110,22 @@ $(document).ready(function(){
                 first = '';
                 second = '';
 
+            }else if(first !== second){
+
             }
 
         }
     });
+    
+    setInterval(function () {
+        clear();
+    }, 2000);
 
-    var allActive = $('.active').map(function() {
-        console.log('true');
-    });
+    function clear() {
+        $('.active').attr('class', 'inactive');
+        first = '';
+        second = '';
+    }
 
 });
 

@@ -93,19 +93,26 @@ $(document).ready(function(){
     //When the player clicks a card, this function will return the row and column
     //of the card which is clicked on.
     $('#speelveld td').click(function () {
+        event.preventDefault();
+        console.log('clicked');
         $(this).attr('class', 'active');
+
+        //TODO make sure the rebind click somewhere.
+        //$(this).unbind('click');
         var col = $(this).parent().children().index($(this));
         var row = $(this).parent().parent().children().index($(this).parent());
         console.log('row: ' + row + ' column: ' + col);
-        getClickedLetter(row, col);
+        getClickedLetter(row, col, this);
     });
 
     //this function returns the letters hided behind the card depending on the row and column.
-    function getClickedLetter(row, col){
+    function getClickedLetter(row, col, clickedElement){
         if(first && first !== ''){
             second = playField[row][col];
+            $(clickedElement).html(second);
         } else {
             first = playField[row][col];
+            $(clickedElement).html(first);
         }
 
         if(second){
@@ -128,7 +135,19 @@ $(document).ready(function(){
     }, 2000);
 
     function clear() {
-        $('.active').attr('class', 'inactive');
+        for(var i = 0; i < playField.length; i++){
+            for(var j = 0; j < playField.length; j++){
+                var card = playField[i][j];
+                var domElement = $('#speelveld tr').eq(i).find('td').eq(j)
+                if(card !== '*' && domElement.attr('class') != 'found'){
+                    domElement.attr('class', 'inactive');
+                    domElement.html($('#character').val());
+                }
+            }
+        }
+
+
+
         first = '';
         second = '';
     }

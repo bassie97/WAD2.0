@@ -84,6 +84,8 @@ $(document).ready(function(){
 
     var first = ''
     var second = '';
+    var timer = new Timer(clear, $('#looptijd').val() * 1000);
+    timer.stop();
 
     $("#opnieuw").click(function(){
         initGame($("#size").val());
@@ -113,26 +115,23 @@ $(document).ready(function(){
         } else {
             first = playField[row][col];
             $(clickedElement).html(first);
+            timer.start();
         }
 
-        if(second){
+        if (second) {
             console.log('card 1: ' + first + ' card 2: ' + second);
-            if(first === second){
+            if (first === second) {
                 // pair found
                 console.log('found a pair');
                 $('.active').attr('class', 'found');
                 first = '';
                 second = '';
 
-            }else if(first !== second){
+            } else if (first !== second) {
 
             }
         }
     }
-
-    setInterval(function () {
-        clear();
-    }, 2000);
 
     function clear() {
         for(var i = 0; i < playField.length; i++){
@@ -152,7 +151,39 @@ $(document).ready(function(){
         second = '';
     }
 
-    //$('#looptijd_slider').slider()
+    $('#looptijd').change(function () {
+        $('#looptijd_value').html($(this).val());
+        timer.reset($(this).val() * 1000);
+    })
+
+    //
+
+    function Timer(fn, time) {
+        var timerObject = setInterval(fn, time);
+
+        this.stop = function() {
+            if (timerObject) {
+                clearInterval(timerObject);
+                timerObject = null;
+            }
+            return this;
+        }
+
+        // start timer using current settings (if it's not already running)
+        this.start = function() {
+            if (!timerObject) {
+                this.stop();
+                timerObject = setInterval(fn, time);
+            }
+            return this;
+        }
+
+        // start with new interval, stop current interval
+        this.reset = function(newTime) {
+            time = newTime;
+            return this.stop().start();
+        }
+    }
 
 });
 

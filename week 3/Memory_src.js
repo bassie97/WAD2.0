@@ -19,13 +19,12 @@ function vulSpeelveld(size){
 	for(var i = 0; i < size; i ++){
         html += "<tr>";
 	    for(var j = 0; j < size; j ++){
-            html += "<td>" + $('#character').val() + "</td>";
+            html += "<td class='inactive'>" + $('#character').val() + "</td>";
         }
         html += "</tr>";
     }
-    //document.getElementById("speelveld").innerHTML = html;
-    $('#speelveld').first().after(html);
-  // Hier moet de code om het speelveld te vullen met de cellen
+
+    $('#speelveld').first().append(html);
 }
 
 // TODO rest van de functionaliteit.

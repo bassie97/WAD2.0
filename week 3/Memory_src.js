@@ -125,7 +125,7 @@ $(document).ready(function(){
 
     setInterval(function () {
         clear();
-    }, 2000);
+    }, $('#looptijd').val() * 1000);
 
     function clear() {
         $('.active').attr('class', 'inactive');
@@ -133,7 +133,9 @@ $(document).ready(function(){
         second = '';
     }
 
-    //$('#looptijd_slider').slider()
+    $('#looptijd').change(function () {
+        $('#looptijd_value').html($(this).val());
+    })
 
 });
 

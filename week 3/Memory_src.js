@@ -8,7 +8,6 @@ function initGame(size) {
 	initVars(size);
 	vulSpeelveld(size);
   // Verder aanvullen....
-    console.log(playField);
 }
 
 function initVars(size){
@@ -30,6 +29,7 @@ function vulSpeelveld(size){
         html += "</tr>";
     }
     $('#speelveld').first().append(html);
+    console.log(playField);
 }
 
 // TODO rest van de functionaliteit.
@@ -90,11 +90,18 @@ $(document).ready(function(){
         console.log('opnieuw geklikt');
     });
 
+    //When the player clicks a card, this function will return the row and column
+    //of the card which is clicked on.
     $('#speelveld td').click(function () {
         $(this).attr('class', 'active');
         var col = $(this).parent().children().index($(this));
         var row = $(this).parent().parent().children().index($(this).parent());
         console.log('row: ' + row + ' column: ' + col);
+        getClickedLetter(row, col);
+    });
+
+    //this function returns the letters hided behind the card depending on the row and column.
+    function getClickedLetter(row, col){
         if(first && first !== ''){
             second = playField[row][col];
         } else {
@@ -114,7 +121,7 @@ $(document).ready(function(){
 
             }
         }
-    });
+    }
 
     setInterval(function () {
         clear();

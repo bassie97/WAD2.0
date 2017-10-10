@@ -113,10 +113,9 @@ $(document).ready(function(){
             }else if(first !== second){
 
             }
-
         }
     });
-    
+
     setInterval(function () {
         clear();
     }, 2000);
@@ -126,6 +125,8 @@ $(document).ready(function(){
         first = '';
         second = '';
     }
+
+    //$('#looptijd_slider').slider()
 
 });
 

@@ -84,6 +84,8 @@ $(document).ready(function(){
 
     var first = ''
     var second = '';
+    var timer = new Timer(clear, $('#looptijd').val() * 1000);
+    timer.stop();
 
     $("#opnieuw").click(function(){
         initGame($("#size").val());
@@ -101,31 +103,28 @@ $(document).ready(function(){
     });
 
     //this function returns the letters hided behind the card depending on the row and column.
-    function getClickedLetter(row, col){
-        if(first && first !== ''){
+    function getClickedLetter(row, col) {
+        if (first && first !== '') {
             second = playField[row][col];
         } else {
             first = playField[row][col];
+            timer.start();
         }
 
-        if(second){
+        if (second) {
             console.log('card 1: ' + first + ' card 2: ' + second);
-            if(first === second){
+            if (first === second) {
                 // pair found
                 console.log('found a pair');
                 $('.active').attr('class', 'found');
                 first = '';
                 second = '';
 
-            }else if(first !== second){
+            } else if (first !== second) {
 
             }
         }
     }
-
-    setInterval(function () {
-        clear();
-    }, $('#looptijd').val() * 1000);
 
     function clear() {
         $('.active').attr('class', 'inactive');
@@ -135,7 +134,37 @@ $(document).ready(function(){
 
     $('#looptijd').change(function () {
         $('#looptijd_value').html($(this).val());
+        timer.reset($(this).val() * 1000);
     })
+
+    //
+
+    function Timer(fn, time) {
+        var timerObject = setInterval(fn, time);
+
+        this.stop = function() {
+            if (timerObject) {
+                clearInterval(timerObject);
+                timerObject = null;
+            }
+            return this;
+        }
+
+        // start timer using current settings (if it's not already running)
+        this.start = function() {
+            if (!timerObject) {
+                this.stop();
+                timerObject = setInterval(fn, time);
+            }
+            return this;
+        }
+
+        // start with new interval, stop current interval
+        this.reset = function(newTime) {
+            time = newTime;
+            return this.stop().start();
+        }
+    }
 
 });
 

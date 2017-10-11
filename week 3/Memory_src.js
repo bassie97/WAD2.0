@@ -6,7 +6,7 @@
 function initGame(size) {
 	initVars(size);
 	vulSpeelveld(size);
-  // Verder aanvullen....
+
 }
 
 function initVars(size){
@@ -86,11 +86,15 @@ $(document).ready(function(){
     var second = '';
     var turnEnded = false;
     var timer = new Timer(clear, $('#looptijd').val() * 1000);
+    var globalTimer = $("#tijd");
+    var totalTime = 0;
     timer.stop();
 
     $("#opnieuw").click(function(){
         initGame($("#size").val());
         console.log('opnieuw geklikt');
+        totalTime = 0;
+        globalTimer.text(totalTime);
     });
 
     //When the player clicks a card, this function will return the row and column
@@ -191,7 +195,10 @@ $(document).ready(function(){
             return this.stop().start();
         }
     }
-
+    setInterval(function(){
+        ++totalTime;
+        globalTimer.text(totalTime);
+    }, 1000);
 });
 
 

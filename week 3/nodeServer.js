@@ -71,11 +71,12 @@ app.post('/submitScore', function(req, res) {
     res.end()
     console.log(req.body.name);
     var name = req.body.name;
+    var score = req.body.score;
     //var score = req.body.score;
-    var sql = 'INSERT INTO score(`Username`, `Score`) VALUES (' + con.escape(name) + ',' + '444' + ')';
+    var sql = 'INSERT INTO score(`Username`, `Score`) VALUES (' + con.escape(name) + ',' + con.escape(score) + ')';
     con.query(sql, function(error, results, fields) {
       if (error) throw error;
-      console.log("added user: " + name + " with score: 123");
+      console.log("added user: " + name + " with score: " + score);
     })
   getTopScore();
 
@@ -83,7 +84,7 @@ app.post('/submitScore', function(req, res) {
 
 //create html string with topscore
 function getTopScore(){
-  var sql = "SELECT `Username`, `Score` FROM score ORDER BY `Score` DESC LIMIT 5";
+  var sql = "SELECT `Username`, `Score` FROM score ORDER BY `Score` ASC LIMIT 5";
   con.query(sql, function(error, results, fields){
     var scores = '';
     if (error) throw error;

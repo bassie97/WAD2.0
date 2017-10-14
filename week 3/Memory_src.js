@@ -273,6 +273,7 @@ $(document).ready(function(){
       globalTimer.text(totalTime);
     } else {
       winTime = globalTimer.text()
+      gameWon = false;
     }
 
   }, 1000);

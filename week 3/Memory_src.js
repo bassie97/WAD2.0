@@ -3,11 +3,10 @@
  */
 
 
-
 function initGame(size) {
 	initVars(size);
 	vulSpeelveld(size);
-  // Verder aanvullen....
+
 }
 
 function initVars(size){
@@ -18,6 +17,7 @@ function vulSpeelveld(size){
     playField = Create2DArray(size);
     $('#speelveld').empty();
     var html = '';
+
 	getLetter = new nextLetter(size);
 	for(var i = 0; i < size; i ++){
         html += "<tr>";
@@ -84,7 +84,10 @@ $(document).ready(function(){
 
     var first = ''
     var second = '';
+    var turnEnded = false;
     var timer = new Timer(clear, $('#looptijd').val() * 1000);
+    var globalTimer = $("#tijd");
+    var totalTime = 0;
     timer.stop();
 
     $("#submit").click(function(){
@@ -106,6 +109,8 @@ $(document).ready(function(){
     $("#opnieuw").click(function(){
         initGame($("#size").val());
         console.log('opnieuw geklikt');
+        totalTime = 0;
+        globalTimer.text(totalTime);
     });
 
     //When the player clicks a card, this function will return the row and column
@@ -125,28 +130,36 @@ $(document).ready(function(){
 
     //this function returns the letters hided behind the card depending on the row and column.
     function getClickedLetter(row, col, clickedElement){
-        if(first && first !== ''){
-            second = playField[row][col];
-            $(clickedElement).html(second);
-        } else {
-            first = playField[row][col];
-            $(clickedElement).html(first);
-            timer.start();
-        }
 
-        if (second) {
-            console.log('card 1: ' + first + ' card 2: ' + second);
-            if (first === second) {
-                // pair found
-                console.log('found a pair');
-                $('.active').attr('class', 'found');
-                first = '';
-                second = '';
-
-            } else if (first !== second) {
-
+            if (first && first !== '') {
+                second = playField[row][col];
+                $(clickedElement).html(second);
+            } else {
+                first = playField[row][col];
+                $(clickedElement).html(first);
             }
-        }
+
+            if (second && !turnEnded) {
+
+                timer.start();
+                console.log('timer has started running!');
+                console.log('card 1: ' + first + ' card 2: ' + second);
+                if (first === second) {
+                    console.log('found a pair');
+                    $('.active').attr('class', 'found');
+                    first = '';
+                    second = '';
+                    timer.stop();
+                } else if (first !== second) {
+                    console.log('both cards didn\'t match, starting new turn.');
+                    timer.start();
+                }
+                turnEnded = true;
+
+            }else if(turnEnded){
+                clear();
+                turnEnded = false;
+            }
     }
 
     function clear() {
@@ -154,17 +167,15 @@ $(document).ready(function(){
             for(var j = 0; j < playField.length; j++){
                 var card = playField[i][j];
                 var domElement = $('#speelveld tr').eq(i).find('td').eq(j)
-                if(card !== '*' && domElement.attr('class') != 'found'){
+                if(card !== $('#character').val() && domElement.attr('class') !== 'found'){
                     domElement.attr('class', 'inactive');
                     domElement.html($('#character').val());
                 }
             }
         }
-
-
-
         first = '';
         second = '';
+        timer.stop();
     }
 
     $('#looptijd').change(function () {
@@ -200,7 +211,10 @@ $(document).ready(function(){
             return this.stop().start();
         }
     }
-
+    setInterval(function(){
+        ++totalTime;
+        globalTimer.text(totalTime);
+    }, 1000);
 });
 
 

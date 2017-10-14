@@ -87,6 +87,22 @@ $(document).ready(function(){
     var timer = new Timer(clear, $('#looptijd').val() * 1000);
     timer.stop();
 
+    $("#submit").click(function(){
+      event.preventDefault();
+      var userName = $("#username").val();
+      $.ajax({
+        url: "/submitScore",
+        type: 'POST',
+        data: {name: userName},
+
+        succes: function(data){
+          aler('succes');
+
+        }
+
+      });
+    });
+
     $("#opnieuw").click(function(){
         initGame($("#size").val());
         console.log('opnieuw geklikt');

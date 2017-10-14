@@ -7,6 +7,14 @@
 <script type="text/javascript" src="Memory_src.js"></script>
 <script src="jscolor.min.js"></script>
 
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('updateScore', function(msg){
+      $('#topscores').html(msg);
+    });
+  </script>
+
 <style type="text/css">
 
   body { width:90vw; height:90vh; padding:0; margin:0; font-family:Skia,Verdana,sans-serif; text-align:center; }  
@@ -64,6 +72,14 @@
   <table id="speelveld"></table>
 
 <table id="meta">
+  <tr>
+    <td>
+      <form>
+        <input type="text" placeholder="your name" id="username">
+        <button id="submit">Submit</button>
+      </form>
+    </td>
+  </tr>
   <tr><td>
     <b>Top vijf</b>
     <ol id="topscores"></ol>

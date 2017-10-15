@@ -85,9 +85,13 @@ $(document).ready(function(){
     var first = ''
     var second = '';
     var turnEnded = false;
-    var timer = new Timer(clear, $('#looptijd').val() * 1000);
+    var looptijd = $('#looptijd').val();
+    var timer = new Timer(clear, looptijd * 1000);
     var globalTimer = $("#tijd");
     var totalTime = 0;
+    var timerBar = $('#timeLeft');
+    var width = 0;
+    var fillBar;
     timer.stop();
 
     $("#submit").click(function(){
@@ -99,7 +103,7 @@ $(document).ready(function(){
         data: {name: userName},
 
         succes: function(data){
-          aler('succes');
+          alert('succes');
 
         }
 
@@ -134,6 +138,9 @@ $(document).ready(function(){
             if (first && first !== '') {
                 second = playField[row][col];
                 $(clickedElement).html(second);
+                console.log('setting timer bar to green and width to 0');
+                timerBar.css('background-color', 'green');
+                width = 0;
             } else {
                 first = playField[row][col];
                 $(clickedElement).html(first);
@@ -144,6 +151,11 @@ $(document).ready(function(){
                 timer.start();
                 console.log('timer has started running!');
                 console.log('card 1: ' + first + ' card 2: ' + second);
+
+                fillBarBoole = true;
+                var temp = 5 * $('#looptijd').val();
+                console.log(temp);
+                fillBar = setInterval(frame, temp);
                 if (first === second) {
                     console.log('found a pair');
                     $('.active').attr('class', 'found');
@@ -153,6 +165,7 @@ $(document).ready(function(){
                 } else if (first !== second) {
                     console.log('both cards didn\'t match, starting new turn.');
                     timer.start();
+
                 }
                 turnEnded = true;
 
@@ -175,15 +188,29 @@ $(document).ready(function(){
         }
         first = '';
         second = '';
+
         timer.stop();
     }
 
     $('#looptijd').change(function () {
-        $('#looptijd_value').html($(this).val());
+        var looptijd = $('#looptijd_value');
+        looptijd.html($(this).val());
         timer.reset($(this).val() * 1000);
     })
 
-    //
+    function frame(){
+        if(width >= 200){
+            if(fillBarBoole) {
+                clearInterval(fillBar);
+                timerBar.css('background-color', 'red');
+                fillBarBoole = false;
+            }
+        } else {
+            width++;
+            timerBar.width(width)
+        }
+
+    }
 
     function Timer(fn, time) {
         var timerObject = setInterval(fn, time);

@@ -71,7 +71,9 @@ app.post('/submitScore', function(req, res) {
     res.end()
     console.log(req.body.name);
     var name = req.body.name;
+    name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     var score = req.body.score;
+    score.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     //var score = req.body.score;
     var sql = 'INSERT INTO score(`Username`, `Score`) VALUES (' + con.escape(name) + ',' + con.escape(score) + ')';
     con.query(sql, function(error, results, fields) {

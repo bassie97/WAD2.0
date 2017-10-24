@@ -106,7 +106,7 @@ $(document).ready(function(){
   $("#submit").click(function(){
     //event.preventDefault();
     var userName = $("#username").val();
-    userName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
     console.log(userName);
     //ff kijken of dit werkt, anders gewoon if username contains <script> -> alert(fk you dont.);
       // DIT MOET EIGENLIJK SERVER-SIDED GEBEUREN.

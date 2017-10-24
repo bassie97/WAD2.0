@@ -101,7 +101,7 @@ $(document).ready(function(){
 
   //TODO this part should be called after a game is finished
   $("#submit").click(function(){
-    event.preventDefault();
+    //event.preventDefault();
     var userName = $("#username").val();
     $.ajax({
       url: "/submitScore",

@@ -97,19 +97,26 @@ $(document).ready(function(){
   var currentAmount0fPairs = 0;
   var gameWon = false;
   var winTime = '';
+  var width = 0;
+  var timerBar = $('#timeLeft');
+  var fillBar;
   timer.stop();
 
   //TODO this part should be called after a game is finished
   $("#submit").click(function(){
     //event.preventDefault();
     var userName = $("#username").val();
+    userName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    console.log(userName);
+    //ff kijken of dit werkt, anders gewoon if username contains <script> -> alert(fk you dont.);
+      // DIT MOET EIGENLIJK SERVER-SIDED GEBEUREN.
     $.ajax({
       url: "/submitScore",
       type: 'POST',
       data: {name: userName, score: winTime},
 
       succes: function(data){
-        aler('succes');
+        alert('succes');
 
       }
 
@@ -170,6 +177,11 @@ $(document).ready(function(){
     if(cardPair.length == 2){
       //start toontijd
       timer.start();
+      timerBar.css('background-color', 'green');
+      width = 0;
+      fillBarBoole = true;
+      var temp = 5 * $('#looptijd').val();
+      fillBar = setInterval(frame, temp);
 
       console.log(cardPair);
       compareCards(firstElement, secondElement);
@@ -177,6 +189,19 @@ $(document).ready(function(){
 
 
   });
+
+    function frame(){
+        if(width >= 180){
+            if(fillBarBoole) {
+                clearInterval(fillBar);
+                timerBar.css('background-color', 'red');
+                fillBarBoole = false;
+            }
+        } else {
+            width++;
+            timerBar.width(width)
+        }
+    }
 
   function compareCards(first, second){
     if(cardPair[0] === cardPair[1]){
